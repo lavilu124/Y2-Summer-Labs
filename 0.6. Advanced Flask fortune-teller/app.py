@@ -7,11 +7,10 @@ app = Flask(__name__)
 def home():
     if request.method == "GET":
         return render_template("home.html")
-    else:
-        if (len(request.form["month"]) > 9):
+    elif (len(request.form["month"]) > 9):
             return redirect(url_for('fortune', month="september"))
         
-        return redirect(url_for('fortune', month=request.form["month"]))
+    return redirect(url_for('fortune', month=request.form["month"]))
 
 @app.route("/fortune/<month>")
 def fortune(month):
