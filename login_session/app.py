@@ -24,14 +24,14 @@ def home():
     else:
         if request.method == "GET":
             return render_template("home.html", name=login_session["name"],month=login_session["month"])
-        else:
-            login_session.clear()
-            return redirect(url_for('login'))
+
+        login_session.clear()
+        return redirect(url_for('login'))
 
 @app.route("/fortune")
 def fortune():
     if (not "month" in login_session.keys()) or (not "name" in login_session.keys()):
-        redirect(url_for('login'))
+        return redirect(url_for('login'))
     forunes = ["good day", "bad day", "ok day", "your dad will die", "it's your birthday", "you will get a gift", "you will die", "you will get hurt", "you will buy something", "it's your moms birthday"]
     return render_template("fortune.html", fortune=forunes[len(login_session["month"])-1])
 
