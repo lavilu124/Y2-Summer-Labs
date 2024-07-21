@@ -17,7 +17,7 @@ def login():
     
     
 @app.route("/home", methods={"GET","POST"})
-def home():
+def home():      
     if (not "month" in login_session.keys()) or (not "name" in login_session.keys()):
         login_session.clear()
         return redirect(url_for('login'))

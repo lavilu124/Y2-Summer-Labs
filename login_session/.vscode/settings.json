@@ -1,0 +1,5 @@
+{
+    "vs-browser.localProxyServer.forceLocation": true,
+    "vs-browser.reload.autoReloadDurationEnabled": true,
+    "vs-browser.url": "http://127.0.0.1:5000"
+}

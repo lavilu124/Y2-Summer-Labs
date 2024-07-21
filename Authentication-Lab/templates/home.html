@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Add icon library -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+        <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+
+    </head>
+
+    <body>
+        <form action="/home?f=f1" method="POST" style="max-width:500px;margin:auto">
+            <button type="submit" class="btn">logout</button>
+        </form>
+
+        <form action="/home?f=f2" method="POST" style="max-width:500px;margin:auto">
+            <input class="input-field" type="text" placeholder="qoute" name="qoute">
+            <button type="submit" class="btn">add qoute</button>
+        </form>
+    </body>
+</html>
