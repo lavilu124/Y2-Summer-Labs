@@ -5,7 +5,7 @@ import pyrebase
 app = Flask(__name__)
 app.config['SECRET_KEY']="*******"
 
-
+   
 firebaseConfig = {
   "apiKey": "AIzaSyCmVPwGebqkmcMzqRGwWRD_WIRPgEpnmN4",
   "authDomain": "auth-1d122.firebaseapp.com",
@@ -54,6 +54,9 @@ def signup():
     
 @app.route('/home', methods=["GET", "POST"])
 def home():
+    if "user" not in login_session or login_session["user"] == None: 
+        return redirect(url_for("signup"))
+    
     if request.method == "GET":
         return render_template("home.html")
     
@@ -72,10 +75,16 @@ def home():
 
 @app.route('/thanks')
 def thanks():
+    if "user" not in login_session or login_session["user"] == None: 
+        return redirect(url_for("signup"))
+    
     return render_template("thanks.html")
 
 @app.route('/display')
 def display():
+    if "user" not in login_session or login_session["user"] == None: 
+        return redirect(url_for("signup"))
+    
     return render_template("display.html", quotes=login_session["quotes"])
 
 if __name__ == '__main__':

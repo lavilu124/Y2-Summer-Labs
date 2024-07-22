@@ -13,15 +13,18 @@
             <h1 style="color: white;">Login to Facebook</h1 >
             <div class="input-container">
                 <i class="fa fa-user icon"></i>
-                <input class="input-field" type="text" placeholder="Email" name="email">
+                <input class="input-field" type="text" placeholder="Email" name="email" required>
             </div>
             <div class="input-container">
                 <i class="fa fa-key icon"></i>
-                <input class="input-field" type="password" placeholder="Password" name="password">
+                <input class="input-field" type="password" placeholder="Password" name="password" required>
             </div>
             <button type="submit" class="btn">Login</button>
         </form>
-        <a href="/" style="color: white;">Don't have a user? Sign up!</a>
-        <p style="color: white;">{{error}}</p>
+        <div class="heading">
+            <a href="/" style="color: white;">Don't have a user? Sign up!</a>
+            <br>
+            <p style="color: white;">{{error}}</p>
+        </div>
     </body>
 </html>
