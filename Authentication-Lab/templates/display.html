@@ -11,8 +11,8 @@
 
     <body>
         <ul>
-            {% for i in quotes %}
-            <li style="color: purple;">{{ i }}</li>
+            {% for quote in quotes.values() %}
+            <li style="color: purple;">the qoute is: {{ quote["quote"] }}. {{quote["said_by"]}} said it</li>
             {% endfor %}
         </ul>
         <a href="/home">go back home</a>

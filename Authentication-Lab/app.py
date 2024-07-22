@@ -14,11 +14,12 @@ firebaseConfig = {
   "messagingSenderId": "904400603214",
   "appId": "1:904400603214:web:1a6134f512ebf7c3f51b1f",
   "measurementId": "G-07RG4NS2HQ",
-  "databaseURL" : ""
+  "databaseURL" : "https://auth-1d122-default-rtdb.europe-west1.firebasedatabase.app/"
 }
 
 firebase = pyrebase.initialize_app(firebaseConfig)
 auth = firebase.auth()
+db = firebase.database()
 
 @app.route('/signin', methods=['GET', 'POST'])
 def signin():
@@ -29,7 +30,6 @@ def signin():
     password = request.form['password']
     try:
         login_session['user'] = auth.sign_in_with_email_and_password(email, password)
-        login_session["quotes"] = []
         return redirect(url_for('home'))
     except:
         error_msg = "Womp it failed sad"
@@ -41,11 +41,14 @@ def signup():
     if request.method == 'GET':
         return render_template("signup.html") 
     
-    email = request.form['email']
-    password = request.form['password']
     try:
-        login_session['user'] = auth.create_user_with_email_and_password(email, password)
-        login_session["quotes"] = []
+        login_session['user'] = auth.create_user_with_email_and_password(request.form['email'], request.form['password'])
+        db.child("users").child(login_session['user']['localId']).set(
+            {"email": request.form['email'], 
+            "password": request.form['password'],
+            "username": request.form['username'],
+            "full_name": request.form['full_name']
+            })
         return redirect(url_for('home'))
     except:
         error_msg = "Womp it failed. Try again"
@@ -54,9 +57,6 @@ def signup():
     
 @app.route('/home', methods=["GET", "POST"])
 def home():
-    if "user" not in login_session or login_session["user"] == None: 
-        return redirect(url_for("signup"))
-    
     if request.method == "GET":
         return render_template("home.html")
     
@@ -65,8 +65,9 @@ def home():
         auth.current_user = None
         return redirect(url_for('signin'))
     
-    login_session["quotes"].append(request.form["qoute"])
-    login_session.modified = True
+    db.child("quotes").push({"quote":request.form["quote"],
+                             "said_by":request.form["said_by"],
+                             "id":login_session["user"]["localId"]})
     return redirect(url_for("thanks"))
     
     
@@ -75,17 +76,11 @@ def home():
 
 @app.route('/thanks')
 def thanks():
-    if "user" not in login_session or login_session["user"] == None: 
-        return redirect(url_for("signup"))
-    
     return render_template("thanks.html")
 
 @app.route('/display')
 def display():
-    if "user" not in login_session or login_session["user"] == None: 
-        return redirect(url_for("signup"))
-    
-    return render_template("display.html", quotes=login_session["quotes"])
+    return render_template("display.html", quotes=db.child("quotes").get().val())
 
 if __name__ == '__main__':
     app.run(debug=True)

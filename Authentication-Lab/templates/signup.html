@@ -21,10 +21,19 @@
                 <i class="fa fa-key icon"></i>
                 <input class="input-field" type="password" placeholder="Password" name="password" required>
             </div>
+
+            <div class="input-container">
+                <input class="input-field" type="full_name" placeholder="full name" name="full_name" required>
+            </div>
+
+            <div class="input-container">
+                <input class="input-field" type="username" placeholder="username" name="username" required>
+            </div>
             <button type="submit" class="btn">Signup</button>
         </form>
         <div class="heading">
             <a href="/signin" style="color:white">Already have an account? Log in!</a>
         </div>
+        <h1> {{error}}</h1>
     </body>
 </html>
