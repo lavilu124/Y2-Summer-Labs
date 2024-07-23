@@ -22,8 +22,8 @@
             <ul class="tm-site-nav-ul">
               <li class="tm-page-nav-item">
                 <a href="#drink" class="tm-page-link active">
-                  <i class="fas fa-question-circle tm-page-link-icon"></i>
-                  <span>make a question</span>
+                  <i class="fas fa-search tm-page-link-icon"></i>
+                  <span>View Questions</span>
                 </a>
               </li>
               <li class="tm-page-nav-item">
@@ -34,8 +34,8 @@
               </li>
               <li class="tm-page-nav-item">
                 <a href="#special" class="tm-page-link">
-                  <i class="fas fa-search tm-page-link-icon"></i>
-                  <span>View Questions</span>
+                  <i class="fas fa-question-circle tm-page-link-icon"></i>
+                  <span class="centering">make a question</span>
                 </a>
               </li>
               <li class="tm-page-nav-item">
@@ -51,7 +51,7 @@
       <div class="tm-right">
         <main class="tm-main">
           <div id="drink" class="tm-page-content">
-            <!-- Drink Menu Page -->
+            <!-- question Menu Page -->
             <nav class="tm-black-bg tm-drinks-nav">
               <ul>
                 <li>
@@ -172,8 +172,8 @@
 
           <!-- About Us Page -->
           <div id="about" class="tm-page-content">
-            <div class="tm-black-bg tm-mb-20 tm-about-box-1">              
-              <h2 class="tm-text-primary tm-about-header">About Wave Cafe</h2>
+            <div class="tm-black-bg tm-mb-20 tm-about-box-2">              
+              <h2 class="tm-text-primary">about us</h2>
               <div class="tm-list-item tm-list-item-2">                
                 <div class="tm-list-item-text-2">
                   <h1></h1>
@@ -194,51 +194,24 @@
           </div>
           <!-- end About Us Page -->
 
-          <!-- Special Items Page -->
+          <!-- make a question Page -->
           <div id="special" class="tm-page-content">
             <div class="tm-special-items">
               <div class="tm-black-bg tm-special-item">
-                <img src="img/special-01.jpg" alt="Image">
                 <div class="tm-special-item-description">
-                  <h2 class="tm-text-primary tm-special-item-title">Special One</h2>
-                  <p class="tm-special-item-text">Here is a short text description for the first special item. You are not allowed to redistribute this template ZIP file.</p>  
+                  <h2 class="tm-text-primary tm-special-item-title">make a question</h2>
+                  <div class="questionMaker">  
+                    <h3>fill out the info to make the question</h3>
+                    <form id="contact" action="/?f=addQuestion" method="POST">
+                      <input class="questionTitle" name="title" placeholder="Title" type="url" tabindex="4" required>
+                      <br>
+                      <textarea name="text" placeholder="Type your question Here...." tabindex="5" class="questionText" required></textarea>
+                      <br>
+                      <button name="submit" type="submit" id="contact-submit" data-submit="...Uploading" class="button-7" role="button">enter question</button>
+                    </form>
+                  </div>
                 </div>
-              </div>
-              <div class="tm-black-bg tm-special-item">
-                <img src="img/special-02.jpg" alt="Image">
-                <div class="tm-special-item-description">
-                  <h2 class="tm-text-primary tm-special-item-title">Second Item</h2>
-                  <p class="tm-special-item-text">You are allowed to download, modify and use this template for your commercial or non-commercial websites.</p>  
-                </div>
-              </div>
-              <div class="tm-black-bg tm-special-item">
-                <img src="img/special-03.jpg" alt="Image">
-                <div class="tm-special-item-description">
-                  <h2 class="tm-text-primary tm-special-item-title">Third Special Item</h2>
-                  <p class="tm-special-item-text">Pellentesque in ultrices mi, quis mollis nulla. Quisque sed commodo est, quis tincidunt nunc.</p>  
-                </div>
-              </div>
-              <div class="tm-black-bg tm-special-item">
-                <img src="img/special-04.jpg" alt="Image">
-                <div class="tm-special-item-description">
-                  <h2 class="tm-text-primary tm-special-item-title">Special Item Fourth</h2>
-                  <p class="tm-special-item-text">Vivamus finibus nulla sed metus sagittis, sed ultrices magna aliquam. Mauris fermentum.</p>  
-                </div>
-              </div>      
-              <div class="tm-black-bg tm-special-item">
-                <img src="img/special-05.jpg" alt="Image">
-                <div class="tm-special-item-description">
-                  <h2 class="tm-text-primary tm-special-item-title">Sixth Sense</h2>
-                  <p class="tm-special-item-text">Here is a short text description for sixth item. This text is four lines.</p>  
-                </div>
-              </div>
-              <div class="tm-black-bg tm-special-item">
-                <img src="img/special-06.jpg" alt="Image">
-                <div class="tm-special-item-description">
-                  <h2 class="tm-text-primary tm-special-item-title">Seventh Item</h2>
-                  <p class="tm-special-item-text">Curabitur eget erat sit amet sapien aliquet vulputate quis sed arcu.</p>  
-                </div>
-              </div>                      
+              </div>                     
             </div>            
           </div>
           <!-- end Special Items Page -->
@@ -248,8 +221,7 @@
             <div class="tm-black-bg tm-contact-text-container">
               <h2 class="tm-text-primary">sign in/up </h2>
               <p>to answer or post qustions pls go sign in/up</p>
-            </div>
-            <div class="tm-black-bg tm-contact-form-container tm-align-right">
+
               <form action="/?f=signin" method="POST" id="contact-form">      
                 <div>
                   <button type="submit" class="tm-btn-primary tm-align-right">

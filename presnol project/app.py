@@ -20,18 +20,32 @@ firebase = pyrebase.initialize_app(firebaseConfig)
 auth = firebase.auth()
 db = firebase.database()
 
+def addQuestion(title, text):
+    new_question = {
+        "user": db.child("users").child(login_session["user"]["localId"]).get().val()["username"],
+        "title": title,
+        "text": text
+    }
+    db.child("questions").push(new_question)
+    previous_questions = db.child("users").child(login_session["user"]["localId"]).get().val()["questions"]
+    previous_questions.append(new_question)
+    db.child("users").child(login_session["user"]["localId"]).update({"questions": previous_questions})
+
 @app.route('/', methods=['GET', 'POST'])
 def home():
-    if request.method == "GET":
-        return render_template("home.html")
+    if request.method == "POST":
+        if request.args.get("f") == "signin":
+            return redirect(url_for("signin"))
+        elif request.args.get("f") == "signup":
+            return redirect(url_for("signup"))
+        elif request.args.get("f") == "signout":
+            login_session["user"] = None
+            return redirect(url_for("signin"))
+        elif request.args.get("f") == "addQuestion":
+            addQuestion(request.form["title"], request.form["text"])
     
-    if request.args.get("f") == "signin":
-        return redirect(url_for("signin"))
-    elif request.args.get("f") == "signup":
-        return redirect(url_for("signup"))
-    elif request.args.get("f") == "signout":
-        login_session["user"] = None
-        return redirect(url_for("signin"))
+    return render_template("home.html")
+
     
 @app.route('/signin', methods=['GET', 'POST'])
 def signin():
@@ -55,7 +69,8 @@ def signup():
         db.child("users").child(login_session["user"]["localId"]).set({
             "email": request.form["email"],
             "password": request.form["password"],
-            "username": request.form["username"]
+            "username": request.form["username"],
+            "questions": []
         })
         return redirect(url_for('home'))
     except:
