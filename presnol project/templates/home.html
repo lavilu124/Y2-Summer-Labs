@@ -51,145 +51,45 @@
       <div class="tm-right">
         <main class="tm-main">
           <div id="drink" class="tm-page-content">
-            <!-- question Menu Page -->
-            <nav class="tm-black-bg tm-drinks-nav">
-              <ul>
-                <li>
-                  <a href="#" class="tm-tab-link active" data-id="cold">Iced Coffee</a>
-                </li>
-                <li>
-                  <a href="#" class="tm-tab-link" data-id="hot">Hot Coffee</a>
-                </li>
-                <li>
-                  <a href="#" class="tm-tab-link" data-id="juice">Fruit Juice</a>
-                </li>
-              </ul>
-            </nav>
-
             <div id="cold" class="tm-tab-content">
               <div class="tm-list">
-                <div class="tm-list-item">          
-                  <img src="../static/img/iced-americano.png" alt="Image" class="tm-list-item-img">
-                  <div class="tm-black-bg tm-list-item-text">
-                    <h3 class="tm-list-item-name">Iced Americano<span class="tm-list-item-price">$10.25</span></h3>
-                    <p class="tm-list-item-description">Here is a short description for the first item. Wave Cafe Template is provided by Tooplate.</p>
-                  </div>
-                </div>
-                <div class="tm-list-item">          
-                  <img src="../static/img/iced-cappuccino.png" alt="Image" class="tm-list-item-img">
-                  <div class="tm-black-bg tm-list-item-text">
-                    <h3 class="tm-list-item-name">Iced Cappuccino<span class="tm-list-item-price">$12.50</span></h3>
-                    <p class="tm-list-item-description">Here is a list of 4 items or add more. You can use this template for commercial purposes.</p>
-                  </div>
-                </div>
-                <div class="tm-list-item">          
-                  <img src="../static/img/iced-espresso.png" alt="Image" class="tm-list-item-img">
-                  <div class="tm-black-bg tm-list-item-text">
-                    <h3 class="tm-list-item-name">Iced Espresso<span class="tm-list-item-price">$14.25</span></h3>
-                    <p class="tm-list-item-description">You are not permitted to redistribute this template ZIP file on any other template websites.</p>
-                  </div>
-                </div>
-                <div class="tm-list-item">          
-                  <img src="../static/img/iced-latte.png" alt="Image" class="tm-list-item-img">
-                  <div class="tm-black-bg tm-list-item-text">
-                    <h3 class="tm-list-item-name">Iced Latte<span class="tm-list-item-price">$11.50</span></h3>
-                    <p class="tm-list-item-description">Contents are organized into 3 tabs. Please <a href="https://www.tooplate.com/contact" rel="nofollow" target="_parent">contact Tooplate</a> if you have anything to ask.</p>
-                  </div>
-                </div> 
-                                       
+                {% if questions_available %}
+                  {% for question in questions.values() %}  
+                    <div class="tm-list-item">          
+                      <div class="tm-black-bg tm-list-item-text">
+                        <h3 class="tm-list-item-name">question["title"]</h3>
+                        <p class="tm-list-item-description">question["text"]</p>
+                        <br>
+                        <br>
+                        <p class="tm-list-item-description">question["user"]</p>
+                      </div>
+                    </div>  
+                  {% endfor %}   
+                {% endif %}             
               </div>
-            </div> 
-
-            <div id="hot" class="tm-tab-content">
-              <div class="tm-list">
-              
-                <div class="tm-list-item">          
-                  <img src="../static/img/hot-americano.png" alt="Image" class="tm-list-item-img">
-                  <div class="tm-black-bg tm-list-item-text">
-                    <h3 class="tm-list-item-name">Hot Americano<span class="tm-list-item-price">$8.50</span></h3>
-                    <p class="tm-list-item-description">Here is a short description for the item along with a squared thumbnail.</p>              
-                  </div>
-                </div>
-                <div class="tm-list-item">          
-                  <img src="../static/img/hot-cappuccino.png" alt="Image" class="tm-list-item-img">
-                  <div class="tm-black-bg tm-list-item-text">
-                    <h3 class="tm-list-item-name">Hot Cappuccino<span class="tm-list-item-price">$9.50</span></h3>
-                    <p class="tm-list-item-description">Here is a list of 4 items that can add more as you need. Only content area will be scrolling.</p>                    
-                  </div>
-                </div>
-                <div class="tm-list-item">          
-                  <img src="../static/img/hot-espresso.png" alt="Image" class="tm-list-item-img">
-                  <div class="tm-black-bg tm-list-item-text">
-                    <h3 class="tm-list-item-name">Hot Espresso<span class="tm-list-item-price">$7.50</span></h3>
-                    <p class="tm-list-item-description">Left side logo and main menu are fixed. The video background is fixed.</p>              
-                  </div>
-                </div>
-                <div class="tm-list-item">          
-                  <img src="../static/img/hot-latte.png" alt="Image" class="tm-list-item-img">
-                  <div class="tm-black-bg tm-list-item-text">
-                    <h3 class="tm-list-item-name">Hot Latte<span class="tm-list-item-price">$6.50</span></h3>
-                    <p class="tm-list-item-description">Page contents are organized into 3 tabs to show different lists of items.</p>              
-                  </div>
-                </div>
-                         
-              </div>
-            </div>
-
-            <div id="juice" class="tm-tab-content">
-              <div class="tm-list">
-                <div class="tm-list-item">          
-                  <img src="../static/img/smoothie-1.png" alt="Image" class="tm-list-item-img">
-                  <div class="tm-black-bg tm-list-item-text">
-                    <h3 class="tm-list-item-name">Strawberry Smoothie<span class="tm-list-item-price">$12.50</span></h3>
-                    <p class="tm-list-item-description">Here is a short description for the item along with a squared thumbnail.</p>              
-                  </div>
-                </div>
-                <div class="tm-list-item">          
-                  <img src="../static/img/smoothie-2.png" alt="Image" class="tm-list-item-img">
-                  <div class="tm-black-bg tm-list-item-text">
-                    <h3 class="tm-list-item-name">Red Berry Smoothie<span class="tm-list-item-price">$14.50</span></h3>
-                    <p class="tm-list-item-description">Here is a list of 4 items or add more. You can use this template for commercial purposes.</p>                    
-                  </div>
-                </div>
-                <div class="tm-list-item">          
-                  <img src="../static/img/smoothie-3.png" alt="Image" class="tm-list-item-img">
-                  <div class="tm-black-bg tm-list-item-text">
-                    <h3 class="tm-list-item-name">Pineapple Smoothie<span class="tm-list-item-price">$16.50</span></h3>
-                    <p class="tm-list-item-description">Left side logo and main menu are fixed. The video background is fixed.</p>              
-                  </div>
-                </div>
-                <div class="tm-list-item">          
-                  <img src="../static/img/smoothie-4.png" alt="Image" class="tm-list-item-img">
-                  <div class="tm-black-bg tm-list-item-text">
-                    <h3 class="tm-list-item-name">Spinach Smoothie<span class="tm-list-item-price">$18.50</span></h3>
-                    <p class="tm-list-item-description">You are not allowed to redistribute the template ZIP file on other template sites.</p>              
-                  </div>
-                </div>              
-              </div>
-            </div>
+            </div>   
             <!-- end Drink Menu Page -->
           </div>
 
           <!-- About Us Page -->
           <div id="about" class="tm-page-content">
             <div class="tm-black-bg tm-mb-20 tm-about-box-2">              
-              <h2 class="tm-text-primary">about us</h2>
+              <h2 class="tm-text-primary">about the website</h2>
               <div class="tm-list-item tm-list-item-2">                
                 <div class="tm-list-item-text-2">
                   <h1></h1>
-                  <p>Wave Cafe is a one-page video background HTML CSS template from Tooplate. You can use this for your business websites.</p>
-                  <p>You can also use this for your client websites which you get paid for your website services. Please tell your friends about us.</p>
+                  <p>connect is a website that is used to ask and answer questions.</p>
+                  <p>You can upload a question using the make a question form and it will upload it and pp will be able to answer you</p>
                 </div>                
               </div>
             </div>
             <div class="tm-black-bg tm-mb-20 tm-about-box-2">              
               <div class="tm-list-item tm-list-item-2">                
                 <div class="tm-list-item-text-2">
-                  <h2 class="tm-text-primary">How we began</h2>
-                  <p>If you wish to support us, please contact Tooplate. Thank you. Duis bibendum erat nec ipsum consectetur sodales.</p>                  
+                  <h2 class="tm-text-primary">what is the reason to use this website</h2>
+                  <p>there isnt one but i had to make one for meet and this was my idea.</p>                  
                 </div>                                
               </div>
-              <p>Donec non urna elit. Quisque ut magna in dui mattis iaculis eu finibus metus. Suspendisse vel mi a lacus finibus vehicula vel ut diam. Nam pellentesque, mi quis ullamcorper.</p>
             </div>
           </div>
           <!-- end About Us Page -->
@@ -202,8 +102,9 @@
                   <h2 class="tm-text-primary tm-special-item-title">make a question</h2>
                   <div class="questionMaker">  
                     <h3>fill out the info to make the question</h3>
-                    <form id="contact" action="/?f=addQuestion" method="POST">
-                      <input class="questionTitle" name="title" placeholder="Title" type="url" tabindex="4" required>
+                    <h5> make sure you signed in for this!!!</h5>
+                    <form action="/?f=addQuestion" method="POST">
+                      <input class="questionTitle" name="title" placeholder="Title" tabindex="4" required>
                       <br>
                       <textarea name="text" placeholder="Type your question Here...." tabindex="5" class="questionText" required></textarea>
                       <br>
@@ -219,35 +120,41 @@
           <!-- signin/signup Page -->
           <div id="contact" class="tm-page-content">
             <div class="tm-black-bg tm-contact-text-container">
-              <h2 class="tm-text-primary">sign in/up </h2>
-              <p>to answer or post qustions pls go sign in/up</p>
 
-              <form action="/?f=signin" method="POST" id="contact-form">      
-                <div>
-                  <button type="submit" class="tm-btn-primary tm-align-right">
-                    go sign in
-                  </button>
-                </div>
-              </form>
-              <br>
-              <form action="/?f=signup" method="POST" id="contact-form">      
-                <div>
-                  <button type="submit" class="tm-btn-primary tm-align-right">
-                    go sign up
-                  </button>
-                </div>
-              </form>
-              <br>
-              <form action="/?f=signout" method="POST" id="contact-form">      
-                <div>
-                  <button type="submit" class="tm-btn-primary tm-align-right">
-                    signout
-                  </button>
-                </div>
-              </form>
+              {%if not signedin%}
+                <h2 class="tm-text-primary">sign in/up </h2>
+                <p>to answer or post qustions pls go sign in/up</p>
+                <form action="/?f=signin" method="POST" id="contact-form">      
+                  <div>
+                    <button type="submit" class="tm-btn-primary tm-align-right">
+                      go sign in
+                    </button>
+                  </div>
+                </form>
+                <br>
+                <form action="/?f=signup" method="POST" id="contact-form">      
+                  <div>
+                    <button type="submit" class="tm-btn-primary tm-align-right">
+                      go sign up
+                    </button>
+                  </div>
+                </form>
+                <br>
+              {% else %}
+                <h2 class="tm-text-primary">Account Managment </h2>
+                <p>welcome! {{username}}</p>
+                <form action="/?f=signout" method="POST" id="contact-form">      
+                  <div>
+                    <button type="submit" class="tm-btn-primary tm-align-right">
+                      signout
+                    </button>
+                  </div>
+                </form>
+              {% endif%}
             </div>
           </div>
-          <!-- end sign in/up Page -->
+
+           <!-- end sign in/up Page -->
         </main>
       </div>    
     </div>

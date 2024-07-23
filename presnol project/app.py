@@ -27,7 +27,10 @@ def addQuestion(title, text):
         "text": text
     }
     db.child("questions").push(new_question)
-    previous_questions = db.child("users").child(login_session["user"]["localId"]).get().val()["questions"]
+    if db.child("users").child(login_session["user"]["localId"]).get().val()["questions"] == None:
+        previous_questions = []
+    else:
+       previous_questions = db.child("users").child(login_session["user"]["localId"]).get().val()["questions"] 
     previous_questions.append(new_question)
     db.child("users").child(login_session["user"]["localId"]).update({"questions": previous_questions})
 
@@ -42,9 +45,20 @@ def home():
             login_session["user"] = None
             return redirect(url_for("signin"))
         elif request.args.get("f") == "addQuestion":
-            addQuestion(request.form["title"], request.form["text"])
-    
-    return render_template("home.html")
+            if "user" in login_session and not login_session["user"] == None:
+                addQuestion(request.form["title"], request.form["text"])
+            
+    if "user" in login_session and not login_session["user"] == None:
+        username_var =db.child("users").child(login_session["user"]["localId"]).get().val()["username"]
+    else:
+        username_var = "t"
+        
+    return render_template("home.html", 
+                           signedin="user" in login_session and not login_session["user"] == None,
+                           username=username_var,
+                           questions_available = not db.child("questions").get().val() == None,
+                           questions= db.child("questions").get().val()
+                           )
 
     
 @app.route('/signin', methods=['GET', 'POST'])
