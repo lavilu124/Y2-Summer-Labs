@@ -57,11 +57,11 @@
                   {% for question in questions.values() %}  
                     <div class="tm-list-item">          
                       <div class="tm-black-bg tm-list-item-text">
-                        <h3 class="tm-list-item-name">question["title"]</h3>
-                        <p class="tm-list-item-description">question["text"]</p>
+                        <h3 class="tm-list-item-name">{{question["title"]}}</h3>
+                        <p class="tm-list-item-description">{{question["text"]}}</p>
                         <br>
                         <br>
-                        <p class="tm-list-item-description">question["user"]</p>
+                        <p class="tm-list-item-description">{{question["user"]}}</p>
                       </div>
                     </div>  
                   {% endfor %}   

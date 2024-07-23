@@ -27,12 +27,12 @@ def addQuestion(title, text):
         "text": text
     }
     db.child("questions").push(new_question)
-    if db.child("users").child(login_session["user"]["localId"]).get().val()["questions"] == None:
-        previous_questions = []
-    else:
-       previous_questions = db.child("users").child(login_session["user"]["localId"]).get().val()["questions"] 
-    previous_questions.append(new_question)
-    db.child("users").child(login_session["user"]["localId"]).update({"questions": previous_questions})
+    # if db.child("users").child(login_session["user"]["localId"]).get().val() == None:
+    #     previous_questions = []
+    # else:
+    #    previous_questions = db.child("users").child(login_session["user"]["localId"]).get().val()["questions"] 
+    # previous_questions.append(new_question)
+    # db.child("users").child(login_session["user"]["localId"]).update({"questions": previous_questions})
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
