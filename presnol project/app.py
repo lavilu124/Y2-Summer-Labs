@@ -21,18 +21,24 @@ auth = firebase.auth()
 db = firebase.database()
 
 def addQuestion(title, text):
+    user_id = login_session["user"]["localId"]
+    user = db.child("users").child(user_id).get().val()
+    
     new_question = {
-        "user": db.child("users").child(login_session["user"]["localId"]).get().val()["username"],
+        "user": user["username"],
         "title": title,
         "text": text
     }
     db.child("questions").push(new_question)
-    # if db.child("users").child(login_session["user"]["localId"]).get().val() == None:
-    #     previous_questions = []
-    # else:
-    #    previous_questions = db.child("users").child(login_session["user"]["localId"]).get().val()["questions"] 
-    # previous_questions.append(new_question)
-    # db.child("users").child(login_session["user"]["localId"]).update({"questions": previous_questions})
+    
+    if "questions" not in user or user["questions"] is None:
+        previous_questions = []
+    else:
+        previous_questions = user["questions"]
+        
+    previous_questions.append(new_question)
+    db.child("users").child(user_id).update({"questions": previous_questions})
+
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
@@ -45,7 +51,7 @@ def home():
             login_session["user"] = None
             return redirect(url_for("signin"))
         elif request.args.get("f") == "addQuestion":
-            if "user" in login_session and not login_session["user"] == None:
+            if "user" in login_session and  login_session["user"] is not None:
                 addQuestion(request.form["title"], request.form["text"])
             
     if "user" in login_session and not login_session["user"] == None:
@@ -54,9 +60,9 @@ def home():
         username_var = "t"
         
     return render_template("home.html", 
-                           signedin="user" in login_session and not login_session["user"] == None,
+                           signedin="user" in login_session and login_session["user"] is not None,
                            username=username_var,
-                           questions_available = not db.child("questions").get().val() == None,
+                           questions_available =  db.child("questions").get().val() is not None,
                            questions= db.child("questions").get().val()
                            )
 
