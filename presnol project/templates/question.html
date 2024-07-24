@@ -128,7 +128,7 @@
                 <div class="col-md-5 offset-md-1">
                   <div class="detail-box">
                     <h1>
-                        {{question["title"]}}
+                       {{question["user"]}}: {{question["title"]}}
                     </h1>
                     <p>
                         {{question["text"]}}
@@ -157,21 +157,23 @@
   <section class="experience_section layout_padding">
     <div class="container">
       <div class="row">
-        <div class="col-md-5">
-          <div class="img-box">
-            <img src="../static/images/experience-img.jpg" alt="">
-          </div>
-        </div>
         <div class="col-md-7">
           <div class="detail-box">
+
             <div class="heading_container">
               <h2>
-                Best Experinced Freelancer Here
+                Comments:
               </h2>
             </div>
-            <p>
-              It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as
-            </p>
+            {% for comment in comments%}
+              <div>
+                <h4>{{comment["user"]}} said:</h4>
+                <br>
+                <p>    {{comment["text"]}}</p>
+                <br>
+                <br>
+              </div>
+            {% endfor %}
           </div>
         </div>
 
@@ -180,6 +182,24 @@
   </section>
 
   <!-- end experience section -->
+
+  <section class="category_section layout_padding">
+    <div class="container">
+      <div class="heading_container">
+        <h2>
+          Add a comment:
+        </h2>
+      </div>
+      <form action="{{route}}" method="POST">
+        <textarea name="text" placeholder="Type your comment Here...." tabindex="5" class="questionText" required></textarea>
+        <br>
+        <button name="submit" type="submit" id="contact-submit" data-submit="...Uploading" class="button-7" role="button">post comment</button>
+      </form>
+    </div>
+  </section>
+
+
+  <!-- end category section -->
 
 
   <script src="../static/js/jquery-3.4.1.min.js"></script>

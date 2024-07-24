@@ -20,24 +20,32 @@ firebase = pyrebase.initialize_app(firebaseConfig)
 auth = firebase.auth()
 db = firebase.database()
 
-def addQuestion(title, text):
+def add_question(title, text):
     user_id = login_session["user"]["localId"]
     user = db.child("users").child(user_id).get().val()
     
     new_question = {
         "user": user["username"],
         "title": title,
-        "text": text
+        "text": text,
+        "comments": []
     }
     db.child("questions").push(new_question)
     
-    if "questions" not in user or user["questions"] is None:
+def add_comment(questionId, text):
+    question = db.child("questions").child(questionId).get().val()
+    if "comments" not in question or question["comments"] is None:
         previous_questions = []
     else:
-        previous_questions = user["questions"]
-        
-    previous_questions.append(new_question)
-    db.child("users").child(user_id).update({"questions": previous_questions})
+        previous_questions = question["comments"]
+    
+    previous_questions.append({
+        "user": db.child("users").child(login_session["user"]["localId"]).get().val()["username"],
+        "text": text
+    })
+    
+    db.child("questions").child(questionId).update({"comments": previous_questions})
+    
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -52,7 +60,7 @@ def home():
             return redirect(url_for("signin"))
         elif request.args.get("f") == "addQuestion":
             if "user" in login_session and  login_session["user"] is not None:
-                addQuestion(request.form["title"], request.form["text"])
+                add_question(request.form["title"], request.form["text"])
             
     if "user" in login_session and not login_session["user"] == None:
         username_var =db.child("users").child(login_session["user"]["localId"]).get().val()["username"]
@@ -90,15 +98,28 @@ def signup():
             "email": request.form["email"],
             "password": request.form["password"],
             "username": request.form["username"],
-            "questions": []
         })
         return redirect(url_for('home'))
     except:
         return render_template("signup.html", error="something went wrong pls try again!")
     
-@app.route("/question/<string:questionId>")
+@app.route("/question/<string:questionId>", methods=['GET', 'POST'])
 def question(questionId):
-    return render_template("question.html", question=db.child("questions").child(questionId).get().val())
+    if request.method == "POST":
+        if "user" in login_session and  login_session["user"] is not None:
+            add_comment(questionId, request.form["text"])
+        
+    question_data = db.child("questions").child(questionId).get().val()
+    
+    if "comments" not in question_data or question_data["comments"] is None:
+        comments_list = []
+    else:
+        comments_list = question_data["comments"]
+        
+    return render_template("question.html",
+                           question=db.child("questions").child(questionId).get().val(),
+                           comments=comments_list,
+                           route="/question/"+questionId)
     
 if __name__ == "__main__":
     app.run(debug=True)
