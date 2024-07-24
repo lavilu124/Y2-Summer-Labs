@@ -35,7 +35,7 @@
               <li class="tm-page-nav-item">
                 <a href="#special" class="tm-page-link">
                   <i class="fas fa-question-circle tm-page-link-icon"></i>
-                  <span class="centering">make a question</span>
+                  <span class="centering">Make a question</span>
                 </a>
               </li>
               <li class="tm-page-nav-item">
@@ -54,16 +54,15 @@
             <div id="cold" class="tm-tab-content">
               <div class="tm-list">
                 {% if questions_available %}
-                  {% for question in questions.values() %}  
-                    <div class="tm-list-item">          
-                      <div class="tm-black-bg tm-list-item-text">
-                        <h3 class="tm-list-item-name">{{question["title"]}}</h3>
-                        <p class="tm-list-item-description">{{question["text"]}}</p>
-                        <br>
-                        <br>
-                        <p class="tm-list-item-description">{{question["user"]}}</p>
+                  {% for id, question in questions.items() %}  
+                    <a href="/question/{{id}}">
+                      <div class="tm-list-item">          
+                        <div class="tm-black-bg tm-list-item-text">
+                          <p class="tm-list-item-description">{{question["user"]}}:</p>
+                          <h2 class="tm-list-item-name">   {{question["title"]}}</h2>
+                        </div>
                       </div>
-                    </div>  
+                    </a>  
                   {% endfor %}   
                 {% endif %}             
               </div>
@@ -106,6 +105,7 @@
                     <form action="/?f=addQuestion" method="POST">
                       <input class="questionTitle" name="title" placeholder="Title" tabindex="4" required>
                       <br>
+                      <br>
                       <textarea name="text" placeholder="Type your question Here...." tabindex="5" class="questionText" required></textarea>
                       <br>
                       <button name="submit" type="submit" id="contact-submit" data-submit="...Uploading" class="button-7" role="button">enter question</button>
@@ -122,7 +122,7 @@
             <div class="tm-black-bg tm-contact-text-container">
 
               {%if not signedin%}
-                <h2 class="tm-text-primary">sign in/up </h2>
+                <h2 class="tm-text-primary">Sign in/up </h2>
                 <p>to answer or post qustions pls go sign in/up</p>
                 <form action="/?f=signin" method="POST" id="contact-form">      
                   <div>
@@ -158,9 +158,6 @@
         </main>
       </div>    
     </div>
-    <footer class="tm-site-footer">
-      <p class="tm-black-bg tm-footer-text">meet y2 webstie</p>
-    </footer>
   </div>
     
   <!-- Background video -->

@@ -283,6 +283,10 @@ h2 {
     margin-left: 220px;
 }
 
+.clickble {
+    cursor: pointer;
+}
+
 
 /* Special */
 
@@ -299,7 +303,7 @@ h2 {
 }
 
 .questionTitle {
-    width: 100px;
+    width: 200px;
     height: 25px;
 }
 

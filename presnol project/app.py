@@ -96,7 +96,9 @@ def signup():
     except:
         return render_template("signup.html", error="something went wrong pls try again!")
     
-
+@app.route("/question/<string:questionId>")
+def question(questionId):
+    return render_template("question.html", question=db.child("questions").child(questionId).get().val())
     
 if __name__ == "__main__":
     app.run(debug=True)
