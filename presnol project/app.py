@@ -30,7 +30,19 @@ def add_question(title, text):
         "text": text,
         "comments": []
     }
-    db.child("questions").push(new_question)
+    
+    id = db.child("questions").push(new_question)["name"]
+    if "questions_id" not in user or user["questions_id"] is None:
+        previous_questions_id = []
+    else:
+        previous_questions_id = user["questions_id"]
+        
+    previous_questions_id.append({"id": id, "title": title})
+    db.child("users").child(user_id).update({"questions_id": previous_questions_id})
+    
+     
+    
+    
     
 def add_comment(questionId, text):
     question = db.child("questions").child(questionId).get().val()
@@ -45,6 +57,30 @@ def add_comment(questionId, text):
     })
     
     db.child("questions").child(questionId).update({"comments": previous_questions})
+
+def check_exsisting_values():
+    user = db.child("users").child(login_session["user"]["localId"]).get().val()
+    
+    if "user" in login_session and not login_session["user"] == None:
+        username_var = user["username"]
+        if "questions_id" in user and user["questions_id"] is not None:
+            users_questions_var= user["questions_id"]
+        else:
+           users_questions_var = [] 
+    else:
+        username_var = "t"
+        users_questions_var = []
+    
+    return [username_var, users_questions_var]
+
+def create_user():
+    login_session["user"] = auth.create_user_with_email_and_password(request.form["email"], request.form["password"])
+    db.child("users").child(login_session["user"]["localId"]).set({
+        "email": request.form["email"],
+        "password": request.form["password"],
+        "username": request.form["username"],
+        "questions_id": []
+    })
     
 
 
@@ -53,25 +89,26 @@ def home():
     if request.method == "POST":
         if request.args.get("f") == "signin":
             return redirect(url_for("signin"))
+        
         elif request.args.get("f") == "signup":
             return redirect(url_for("signup"))
+        
         elif request.args.get("f") == "signout":
             login_session["user"] = None
+            auth.current_user = None
             return redirect(url_for("signin"))
-        elif request.args.get("f") == "addQuestion":
-            if "user" in login_session and  login_session["user"] is not None:
-                add_question(request.form["title"], request.form["text"])
+        
+        elif request.args.get("f") == "addQuestion" and "user" in login_session and  login_session["user"] is not None:
+            add_question(request.form["title"], request.form["text"])
             
-    if "user" in login_session and not login_session["user"] == None:
-        username_var =db.child("users").child(login_session["user"]["localId"]).get().val()["username"]
-    else:
-        username_var = "t"
+    values = check_exsisting_values()
         
     return render_template("home.html", 
                            signedin="user" in login_session and login_session["user"] is not None,
-                           username=username_var,
+                           username=values[0],
                            questions_available =  db.child("questions").get().val() is not None,
-                           questions= db.child("questions").get().val()
+                           questions= db.child("questions").get().val(),
+                           users_questions = values[1]
                            )
 
     
@@ -93,21 +130,15 @@ def signup():
         return render_template("signup.html")
     
     try:
-        login_session["user"] = auth.create_user_with_email_and_password(request.form["email"], request.form["password"])
-        db.child("users").child(login_session["user"]["localId"]).set({
-            "email": request.form["email"],
-            "password": request.form["password"],
-            "username": request.form["username"],
-        })
+        create_user()
         return redirect(url_for('home'))
     except:
         return render_template("signup.html", error="something went wrong pls try again!")
     
 @app.route("/question/<string:questionId>", methods=['GET', 'POST'])
 def question(questionId):
-    if request.method == "POST":
-        if "user" in login_session and  login_session["user"] is not None:
-            add_comment(questionId, request.form["text"])
+    if request.method == "POST" and "user" in login_session and  login_session["user"] is not None:
+        add_comment(questionId, request.form["text"])
         
     question_data = db.child("questions").child(questionId).get().val()
     

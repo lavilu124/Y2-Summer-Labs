@@ -103,7 +103,7 @@
                     <h3>fill out the info to make the question</h3>
                     <h5> make sure you signed in for this!!!</h5>
                     <form action="/?f=addQuestion" method="POST">
-                      <input class="questionTitle" name="title" placeholder="Title" tabindex="4" required>
+                      <input class="questionTitle" name="title" placeh  older="Title" tabindex="4" required>
                       <br>
                       <br>
                       <textarea name="text" placeholder="Type your question Here...." tabindex="5" class="questionText" required></textarea>
@@ -126,23 +126,24 @@
                 <p>to answer or post qustions pls go sign in/up</p>
                 <form action="/?f=signin" method="POST" id="contact-form">      
                   <div>
-                    <button type="submit" class="tm-btn-primary tm-align-right">
-                      go sign in
-                    </button>
+                    <button type="submit" class="tm-btn-primary tm-align-right">sign in</button>
                   </div>
                 </form>
                 <br>
                 <form action="/?f=signup" method="POST" id="contact-form">      
-                  <div>
-                    <button type="submit" class="tm-btn-primary tm-align-right">
-                      go sign up
-                    </button>
+                  <div class="resize">
+                    <button type="submit" class="tm-btn-primary tm-align-right">sign up</button>
                   </div>
                 </form>
                 <br>
               {% else %}
                 <h2 class="tm-text-primary">Account Managment </h2>
                 <p>welcome! {{username}}</p>
+                <p>Here are your questions: </p>
+                {% for user_question in users_questions %}
+                  <a href="question/{{user_question["id"]}}">{{user_question["title"]}}</a>
+                  <br>
+                {% endfor %}
                 <form action="/?f=signout" method="POST" id="contact-form">      
                   <div>
                     <button type="submit" class="tm-btn-primary tm-align-right">
