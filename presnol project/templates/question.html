@@ -44,6 +44,26 @@
               <li class="nav-item active">
                 <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
               </li>
+
+              {%if not signedin%}
+                <div class="user_option">
+                  <a href="/signin">
+                    <span>
+                      Sign in
+                    </span>
+                  </a>
+                </div>
+              {% else %}
+                <div class="user_option">
+                  <div class="username">
+                    <h6>
+                      <span>
+                        {{username}}
+                      </span>
+                    </h6>
+                  </div>
+                </div>
+              {% endif%}
             </ul>
           </div>
           <div>

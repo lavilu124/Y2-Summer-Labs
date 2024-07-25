@@ -13,6 +13,11 @@ body {
     max-height: 150px;
 }
 
+.username {
+    color: #fff;
+    margin-top: 13%;
+}
+
 .button-7 {
     background-color: #099;
     border: 1px solid transparent;

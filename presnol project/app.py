@@ -59,9 +59,8 @@ def add_comment(questionId, text):
     db.child("questions").child(questionId).update({"comments": previous_questions})
 
 def check_exsisting_values():
-    user = db.child("users").child(login_session["user"]["localId"]).get().val()
-    
     if "user" in login_session and not login_session["user"] == None:
+        user = db.child("users").child(login_session["user"]["localId"]).get().val()
         username_var = user["username"]
         if "questions_id" in user and user["questions_id"] is not None:
             users_questions_var= user["questions_id"]
@@ -147,10 +146,14 @@ def question(questionId):
     else:
         comments_list = question_data["comments"]
         
+    values = check_exsisting_values()
+        
     return render_template("question.html",
                            question=db.child("questions").child(questionId).get().val(),
                            comments=comments_list,
-                           route="/question/"+questionId)
+                           route="/question/"+questionId,
+                           signedin="user" in login_session and login_session["user"] is not None,
+                           username=values[0])
     
 if __name__ == "__main__":
     app.run(debug=True)
